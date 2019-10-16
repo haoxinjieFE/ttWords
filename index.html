@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Jquery.barrager.js 专业的网页弹幕插件</title>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="dist/css/barrager.css">
+    <link rel="stylesheet" type="text/css" href="static/pick-a-color/css/pick-a-color-1.2.3.min.css">
+    <link type="text/css" rel="stylesheet" href="static/syntaxhighlighter/styles/shCoreDefault.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            background-color: #f2f2f2;
+            background: url('./static/img/bg.gif') no-repeat center center;
+        }
+
+        .txt {
+            font-size: 20px;
+            margin-bottom: 200px;
+            color: #00a1d6
+        }
+    </style>
+</head>
+
+<body class="bb-js">
+    <div class="bg" onclick="runCounts()">
+        <div class="txt">bilibili</div>
+    </div>
+    <audio id='audio' src="./static/img/a.mp3" autoplay loop></audio>
+    <!-- JS dependencies -->
+    <script type="text/javascript" src="static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/tinycolor-0.9.15.min.js"></script>
+    <script type="text/javascript" src="dist/js/jquery.barrager.min.js"></script>
+    <script type="text/javascript" src="static/syntaxhighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="static/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="static/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+    <script type="text/javascript" src="static/pick-a-color/js/pick-a-color-1.2.3.min.js"></script>
+    <script type="text/javascript">
+    var audio = document.getElementById('audio')
+    var wordsIndex = 0
+    var words = [
+        {
+            avatar: 't',
+            content: '啊啊啊 早上为什么乱我？？？',
+            url:'https://www.zhihu.com/people/qiang-you-53/activities',
+        },
+        {
+            avatar: 't',
+            content: '早上为什么乱我？？？',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 't',
+            content: '我昨天睡那么晚，不能让我多睡会？？？',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 't',
+            content: '接了还说没啥要讲的?! 玩劳资？！🙄',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '我就是起来想着随便说两句话就去上班了 ',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '我看你回消息以为睡醒了是~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '没想乱你...',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '道歉...对不起我应该直接去上班的 让你好好睡一会...',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '昨天竟然说了 6 个小时~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '今天早点睡',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '明天也早点睡',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '以后都早点睡',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 't',
+            content: '呵~🙄',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '我预定德云社的票~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '竟然还要身份证！！！！',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'jia',
+            content: '路过路过~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'yi',
+            content: '围观~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '我还没有燕燕的...',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '看到没~我就说不卡，龙哥就是嫉妒我的睿智~🙄',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'm',
+            content: '今天写着写着代码，突然很想见燕燕~紧张zzzz',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 't',
+            content: '前面那个说见我的，滚滚滚~...🙄',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'jia',
+            content: '老板来了！都别玩了~!',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+        {
+            avatar: 'yi',
+            content: '溜了溜了~',
+            url: 'https://www.zhihu.com/people/qiang-you-53/activities'
+        },
+    ]
+
+    var colors = ['#FFB6C1', '#1E90FF', '#FFF', '#F0E68C',  '#FFA07A', '#FFE4E1']
+
+
+
+        function run_example() {
+            var randomColor = Math.round(Math.random() * 5 + 1)
+            var randomSpeed = Math.round(Math.random() * 8 + 15)
+            var window_height = $(window).height() - 200;
+            var bottom = Math.floor(Math.random() * window_height + 40);
+            var example_item = {
+                img: 'static/img/' + words[wordsIndex].avatar + '.jpeg',
+                info: words[wordsIndex].content,
+                color: colors[randomColor],
+                bottom: bottom,
+                speed: randomSpeed,
+            };
+            $('body').barrager(example_item);
+            wordsIndex++
+            return false;
+        }
+        function runCounts() {
+            var times = Math.round(Math.random() * 1000 + 3000)
+            audio.play();
+            var timer = setInterval(() => {
+            if(wordsIndex > 21) {
+                clearInterval(timer)
+                setTimeout(() => {
+                    wordsIndex = 0
+                    runCounts()
+                }, 3000)
+                return;
+            }
+            run_example()
+            }, times)
+        }
+    </script>
+</body>
+
+</html>
