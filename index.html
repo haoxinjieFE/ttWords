@@ -51,6 +51,11 @@
     <script type="text/javascript" src="static/pick-a-color/js/pick-a-color-1.2.3.min.js"></script>
     <script type="text/javascript">
     var audio = document.getElementById('audio')
+    window.onload = function() {
+        document.body.ontouchstart = function() {
+            audio.play()
+        }
+    }
     var wordsIndex = 0
     var words = [
         {
